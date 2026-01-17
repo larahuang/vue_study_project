@@ -31,7 +31,7 @@ Step 3 src別名
     </li>
 </ul>
 
-#### src/router/index.js
+### src/router/index.js
 ```
 // src/router/index.js
 import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router'
@@ -87,7 +87,9 @@ export default router
 </ul>
 
 </div>
-#### views/Home/index.vue
+
+
+### views/Home/index.vue
 ```
 <template>
     <div>
@@ -105,7 +107,7 @@ import { ref } from "vue";
 </style>
 ```
 
-#### views/AboutMe/index.vue
+### views/AboutMe/index.vue
 ```
 <template>
     <div>
@@ -123,7 +125,7 @@ import {ref} from "vue";
 </style>
 ```
 
-#### views/errorPage/404.vue
+### views/errorPage/404.vue
 ```
 <template>
     <div>
