@@ -1,8 +1,15 @@
 <template>
   <div>
     <div>
-      <router-link :to="'/'">Home</router-link>
-      <router-link :to="'/about'">About Me</router-link>
+      <ul>
+        <li 
+          v-for="(item,id) in menuLists" 
+          :key="id">
+         <RouterLink :to="{ path: item.path }">
+          {{item.name}}
+         </RouterLink>
+        </li>
+      </ul>
     </div>
 
     <a href="https://vite.dev" target="_blank">
@@ -15,14 +22,29 @@
         </keep-alive>
       </transition>
     </router-view>
-
   </div>
 </template>
 
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+const route = useRoute();
+const router = useRouter()
 
+const menuLists =ref([])
+const menuFun =()=>{
+  const selectName =["作品集內頁","404"]
+  Object.entries(router.options.routes).forEach(([item,index])=>{  
+    menuLists.value.push(router.options.routes[item])
+    //排除 404與作品集內頁
+    menuLists.value= menuLists.value.filter(item =>!selectName.includes(item.name))
+  })
+  console.log('menuLists', menuLists.value)
+}
+onMounted(()=>{
+ menuFun()
+})
 </script>
 
 <style scoped>

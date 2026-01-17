@@ -14,9 +14,21 @@ const options = {
             meta:{title:webTitle+'首頁'}
         },
         {
+            path: '/portfolio',
+            name:'作品集目錄',
+            component: () => import("@/views/Portfolio/index.vue"),
+            meta:{title:webTitle+'作品集目錄'} 
+        },
+        {
+            path: '/item/:id',
+            name:'作品集內頁',
+            component: () => import("@/views/Portfolio/item.vue"),
+            meta:{title:webTitle+'作品集內頁'} 
+        },
+        {
             path: '/about',
             name:'關於我們',
-            component: () => import("@/views/ AboutMe/index.vue"),
+            component: () => import("@/views/AboutMe/index.vue"),
             meta:{title:webTitle+'關於我們'} 
         },
         {
