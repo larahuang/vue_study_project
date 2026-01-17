@@ -29,6 +29,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import axios from 'axios'
 const route = useRoute();
 const router = useRouter()
 
@@ -42,8 +43,23 @@ const menuFun =()=>{
   })
   console.log('menuLists', menuLists.value)
 }
+const getData = async () => {
+  try {
+    const api = `https://api-quiz-project.vercel.app/api/questions`;
+    await axios.get(api)
+    const res = await axios.get(api);
+    console.log(res, 'res');
+    if (res.status === 200) {
+      lists.value = res.data;
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
 onMounted(()=>{
- menuFun()
+ menuFun();
+ getData()
+
 })
 </script>
 
