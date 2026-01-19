@@ -1,18 +1,51 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
   <div>
+    <div>
+      <ul>
+        <li 
+          v-for="(item,id) in menuLists" 
+          :key="id">
+         <RouterLink :to="{ path: item.path }">
+          {{item.name}}
+         </RouterLink>
+        </li>
+      </ul>
+    </div>
+
     <a href="https://vite.dev" target="_blank">
       <img src="/vite.svg" class="logo" alt="Vite logo" />
     </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+    <router-view v-slot="{ Component }">
+      <transition>
+        <keep-alive>
+            <component :is="Component" />
+        </keep-alive>
+      </transition>
+    </router-view>
   </div>
-  <HelloWorld msg="Vite + Vue" />
 </template>
+
+
+<script setup>
+import { ref, onMounted } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+const route = useRoute();
+const router = useRouter()
+
+const menuLists =ref([])
+const menuFun =()=>{
+  const selectName =["作品集內頁","404"]
+  Object.entries(router.options.routes).forEach(([item,index])=>{  
+    menuLists.value.push(router.options.routes[item])
+    //排除 404與作品集內頁
+    menuLists.value= menuLists.value.filter(item =>!selectName.includes(item.name))
+  })
+  console.log('menuLists', menuLists.value)
+}
+onMounted(()=>{
+ menuFun()
+})
+</script>
 
 <style scoped>
 .logo {
